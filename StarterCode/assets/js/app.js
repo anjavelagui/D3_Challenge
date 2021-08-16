@@ -38,9 +38,28 @@ var margin2 = { top:40, right:10, bottom: 10, left:10};
 var dataWidth =svg2Width - margin.left -margin.right;
 var dataHeight = svg2Height - margin.top - margin.bottom;
 
+//Select bady and setting dimensions
+var svg2 = d3.select("#linRegress")
+   .append('svg')
+   .attr('width', svgWidth)
+   .attr('height', svg2Height)
+   .attr('fill', 'white');
+
+//loading data fron csv file
+d3.csv('assets/data/data.csv').then(function(data) {
+    var statesData =data;
+    console.log(statesData);
+
+    statesData.forEach(function(data){
+        data.poverty = +data.poverty;
+        data.healthcare = +data.healthcare;
+        data.age = +data.age;
+        data.smokes = +data.smokes;
+        data.obesity = +data.obesity;
+        data.income = +data.income;   
+    });
+    
 
 
-
-//Creating tooltips and assign it to a class
-d3.select()
+})
 
