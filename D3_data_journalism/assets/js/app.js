@@ -311,3 +311,4 @@ d3.csv('assets/data/data.csv').then(function(data) {
     //Updating tooltip based on X and Y axis
     circlesGroup = updateToolTip(circlesGroup, xLabel, yLabel);
 });
+   
