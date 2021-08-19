@@ -7,7 +7,7 @@ var margin = {top:20, right: 40, botton: 60, left:50};
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
-//Create a SVG wrapper
+//Create a SVG wrapper to hold chart and set margins
 var svg = d3
    .select('#scatter')
    .append('svg')
@@ -18,7 +18,6 @@ var svg = d3
    .attr('fill', 'white')
    .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-// Append a SVG group
 var chart = svg.append('g')
    .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
