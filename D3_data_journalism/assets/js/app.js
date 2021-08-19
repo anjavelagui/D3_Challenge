@@ -1,10 +1,9 @@
 // @TODO: YOUR CODE HERE!
-//Creating width and height sets
+//Setting up chart - Creating width and height sets
 var svgWidth = 900;
 var svgHeight = 500;
 
-//Creating margin
-var margin = {top:20, right: 40, botton: 80, left:100};
+var margin = {top:20, right: 40, botton: 60, left:50};
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
@@ -131,7 +130,7 @@ d3.csv('assets/data/data.csv').then(function(data) {
     // //Using Ytext to append SVG file with y coordinates specifires to create space the values   
     var ylabelsGroup = chartGroup.append("g");
 
-    //Lacks of Helathcare
+    //Lacks of Healthcare
     var healthcareLabel = ylabelsGroup.append("text")
         .attr("transform", "rotate(-90)")
         .attr("x", -(chartHeight / 2))
