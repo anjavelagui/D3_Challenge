@@ -19,7 +19,7 @@ var chartGroup = svg.append('g')
 d3.select("body").append("div").attr("class", "tooltip").style("opacity",0);
 
 // import data using D3 
-d3.csv("..data.csv", function(err, healthdata) {
+d3.csv("../data/data.csv"), function(err, healthdata) {
    if (err) throw err;
    console.log(healthdata)
    healthdata.forEach(function(data) {
@@ -96,22 +96,45 @@ d3.csv("..data.csv", function(err, healthdata) {
             return (abbr + '%');
          });
 
-         
+   //Creating tooltip on the  and creating listeners
+   chartGroup.call(tooltip);
 
+   circleGroup.on("click", function(data) {
+      tooltip.show(data);
+   })
 
+   //mouseover event
+   .on("mouseover", function(data, index){
+      tooltip.hide(data);
+   });
 
+   //Create labels for axis
+   chartGroup.append("text")
+   .style("font-size", "11px")
+   .selectAll("tspan")
+   .data(healthdata)
+   .enter()
+   .append("tspan")
+      .attr("x", function(data) {
+         return xLinearScale(data.healthcare +1.2);
+      })
+      .attr("y", function(data) {
+         return xLinearScale(data.poverty +.1);
+      })
+      .text(function(data) {
+         return data.abbr
+      });
 
+      chartGroup.append("text")
+         .attr("transform", "rotate(-90)")
+         .attr("y", 0 -margin.left + 40)
+         .attr("x", 0 - (height / 2))
+         .attr("dy", "1em")
+         .attr("class", "axisText")
+         .text("Lacks of Healthcare(%)");
 
-
-
-
-
-
-
-
-
-
-
-    
-    
- });
+      chartGroup.append("text")  
+         .attr("transform", `translate(${width / 2}, 470)`)
+         .attr("class", "axisText")
+         .text("In Poverty (%)");
+};
