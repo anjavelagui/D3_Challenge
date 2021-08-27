@@ -19,16 +19,16 @@ var chartGroup = svg.append('g')
 d3.select("body").append("div").attr("class", "tooltip").style("opacity",0);
 
 // import data using D3 
-d3.csv("/data/data.csv", function(err, healthdata) {
+d3.csv("..data.csv", function(err, healthdata) {
    if (err) throw err;
    console.log(healthdata)
    healthdata.forEach(function(data) {
       data.poverty = +data.poverty; 
       data.healthcare = +data.healthcare;
-      data.obesity = +data.obesity;
-      data.age = +data.age;
-      data.income = +data.income;
-      data.smokes = +data.smokes; 
+      data.obesity = +data.obesity; //to used later for bonus
+      data.age = +data.age;  //to used later for bonus
+      data.income = +data.income; //to used later for bonus
+      data.smokes = +data.smokes; //to used later for bonus 
    });
 
    //Scale functions
@@ -44,10 +44,71 @@ d3.csv("/data/data.csv", function(err, healthdata) {
    var yMin;
    var yMax;
 
-   xMin = d3.min(healthData, function (data) {
+   xMin = d3.min(healthdata, function(data) {
       return data.healthcare;
    });
-   
+
+   xMax = d3.max(healthdata, function(data) {
+      return data.healthcare;
+
+   });
+
+   xMin = d3.min(healthdata, function(data) {
+      return data.poverty;
+   });
+
+   xMax = d3.max(healthdata, function(data) {
+      return data.poverty;
+
+   });
+
+   xLinearScale.domain([xMin, xMax]);
+   yLinearScale.domain([yMin, yMax]);
+
+   //append axes to chart
+   chartGroup.append('g')
+      .attr("transform", `translate(0, ${height})`)
+      .call(bottomAxis);
+
+   chartGroup.append('g')
+      .call(leftAxis); 
+      
+   //Now create the circles
+   var cicleGroup = chartGroup.selectAll("circle")
+      .data(healthdata)
+      .enter()   
+      .append("circle")
+      .attr("cx", d => xLinearScale(d.healthcare +1.2))
+      .attr("cy", d => yLinearScale(d.poverty +0.2))
+      .attr("r", "12")
+      .attr("fill", "green")
+      .attr("opacy", .5)
+
+      .on("mouseover", function(data, index) {
+         tooltip.hide(data);
+      });
+
+      //Initializing tooltips
+      var tooltip = d3.tip()
+         .attr("class", "tooltip")
+         .offset([80, -60])
+         .html(function(d) {
+            return (abbr + '%');
+         });
+
+         
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
