@@ -19,10 +19,10 @@ var chartGroup = svg.append('g')
 d3.select("body").append("div").attr("class", "tooltip").style("opacity",0);
 
 // import data using D3 
-d3.csv("../data/data.csv"), function(err, healthdata) {
+d3.csv("assets/data/data.csv").then(function(healthData, err) {
    if (err) throw err;
-   console.log(healthdata)
-   healthdata.forEach(function(data) {
+  visualize (healthData);
+   healthData.forEach(function(data) {
       data.poverty = +data.poverty; 
       data.healthcare = +data.healthcare;
       data.obesity = +data.obesity; //to used later for bonus
@@ -44,20 +44,20 @@ d3.csv("../data/data.csv"), function(err, healthdata) {
    var yMin;
    var yMax;
 
-   xMin = d3.min(healthdata, function(data) {
+   xMin = d3.min(healthData, function(data) {
       return data.healthcare;
    });
 
-   xMax = d3.max(healthdata, function(data) {
+   xMax = d3.max(healthData, function(data) {
       return data.healthcare;
 
    });
 
-   xMin = d3.min(healthdata, function(data) {
+   xMin = d3.min(healthData, function(data) {
       return data.poverty;
    });
 
-   xMax = d3.max(healthdata, function(data) {
+   xMax = d3.max(healthData, function(data) {
       return data.poverty;
 
    });
@@ -75,7 +75,7 @@ d3.csv("../data/data.csv"), function(err, healthdata) {
       
    //Now create the circles
    var cicleGroup = chartGroup.selectAll("circle")
-      .data(healthdata)
+      .data(healthData)
       .enter()   
       .append("circle")
       .attr("cx", d => xLinearScale(d.healthcare +1.2))
@@ -112,7 +112,7 @@ d3.csv("../data/data.csv"), function(err, healthdata) {
    chartGroup.append("text")
    .style("font-size", "11px")
    .selectAll("tspan")
-   .data(healthdata)
+   .data(healthData)
    .enter()
    .append("tspan")
       .attr("x", function(data) {
@@ -137,4 +137,4 @@ d3.csv("../data/data.csv"), function(err, healthdata) {
          .attr("transform", `translate(${width / 2}, 470)`)
          .attr("class", "axisText")
          .text("In Poverty (%)");
-};
+});
