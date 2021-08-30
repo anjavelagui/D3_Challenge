@@ -12,6 +12,10 @@ html {
 body {
   /* Padding bottom by footer height */
   padding-bottom: 80px;
+  font-family : 'Droid Serif', serif;
+  font-size: 20px;
+  color: #2f2f2f;
+  background-color: #898989;
 }
 
 #footer {
@@ -23,6 +27,16 @@ body {
   padding-bottom: 40px;
   text-align: center;
   background-color: #f5f5f5;
+}
+
+#scatter {
+  text-align: center;
+  background-color: ghostwhite;
+}
+
+#linRegress {
+  text-align: center;
+  background-color: ghostwhite;
 }
 
 #footer p {
